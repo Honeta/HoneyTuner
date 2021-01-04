@@ -2,7 +2,6 @@
   "name": "honeytuner",
   "version": "1.0.0",
   "author": "HUST_hxj",
-  "icon": "image/icon.ico",
   "description": "HoneyTuner is an audio toolkit by HUST_hxj.",
   "main": "interface/main.js",
   "scripts": {

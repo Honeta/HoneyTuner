@@ -1,5 +1,1 @@
-
-# HoneyTuner By HUST_hxj
-## Ver 1.0.0_beta_20210104
-
-To be updated...
+![Image text](https://raw.githubusercontent.com/HUST-hxj/HoneyTuner/main/image/honeytuner_full.png)
