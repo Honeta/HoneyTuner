@@ -23,17 +23,22 @@
     <body>
         <div id="intro">
             <img src="../image/cutoff.png" width="282" height="102" alt=""/></img>
+            <p>
+                本功能可实现将主音频的任意一个片段进行删除处理，且不会影响其他片段。
+            </p>
+            <p>
+                时间相关参数的规定：对于a分b秒c毫秒这一参数组，应满足a和b是介于0和59之间的整数，c是介于0和999之间的整数。
+            </p>
         </div>
-        </br>
+        <p>请输入参数：</p>
         <form name="args">
-            请输入参数：</br></br>
             将<input type="text" name="arg1" id="arg1" size="1" value="0"/>分
             <input type="text" name="arg2" id="arg2" size="1" value="0"/>秒
-            <input type="text" name="arg3" id="arg3" size="1" value="0"/>毫秒至
+            <input type="text" name="arg3" id="arg3" size="2" value="0"/>毫秒至
             <input type="text" name="arg4" id="arg4" size="1" value="0"/>分
             <input type="text" name="arg5" id="arg5" size="1" value="0"/>秒
-            <input type="text" name="arg6" id="arg6" size="1" value="0"/>毫秒段的音频进行切除</br></br>
-            <input type="reset"/>
+            <input type="text" name="arg6" id="arg6" size="2" value="0"/>毫秒段的音频进行切除</br></br>
+            <input type="reset" class="button"/>
             <input type="submit" onclick="PassArgs(4)" value="确定"/>
         </form>
     </body>

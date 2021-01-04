@@ -24,18 +24,27 @@
     <body>
         <div id="intro">
             <img src="../image/voiceup.png" width="282" height="102" alt=""/></img>
+            <p>
+                本功能可实现将主音频整体或任意一个片段的音量增大，增大倍数可以是任意一个大于1的整数或小数。
+            </p>
+            <p>
+                但也应注意：音频的响度值过大会导致播放时出现破音的现象（即产生较大的爆破声或电流声），
+                故增大倍数应根据音频自身音量大小酌情设定，该参数建议通过多次尝试后确定，一般在1和2之间。
+            </p>
+            <p>
+                时间相关参数的规定：对于a分b秒c毫秒这一参数组，应满足a和b是介于0和59之间的整数，c是介于0和999之间的整数。
+            </p>
         </div>
-        </br>
+        <p>请输入参数：</p>
         <form name="args">
-            请输入参数：</br></br>
             将<input type="text" name="arg1" id="arg1" size="1" value="0"/>分
             <input type="text" name="arg2" id="arg2" size="1" value="0"/>秒
-            <input type="text" name="arg3" id="arg3" size="1" value="0"/>毫秒至
+            <input type="text" name="arg3" id="arg3" size="2" value="0"/>毫秒至
             <input type="text" name="arg4" id="arg4" size="1" value="0"/>分
             <input type="text" name="arg5" id="arg5" size="1" value="0"/>秒
-            <input type="text" name="arg6" id="arg6" size="1" value="0"/>毫秒段的音频</br></br>
-            音量升高至原来的<input type="text" name="arg10" id="arg10" size="1" value="2"/>倍（该空填任一大于1的数）</br></br>
-            <input type="reset"/>
+            <input type="text" name="arg6" id="arg6" size="2" value="0"/>毫秒段的音频音量升高至原来的
+            <input type="text" name="arg10" id="arg10" size="3" value="1.2"/>倍</br></br>
+            <input type="reset" class="button"/>
             <input type="submit" onclick="PassArgs(2)" value="确定"/>
         </form>
     </body>

@@ -24,18 +24,27 @@
     <body>
         <div id="intro">
             <img src="../image/environment.png" width="282" height="102" alt=""/></img>
+            <p>
+                本功能可实现向主音频整体或任意一个片段添加混响效果，且不影响其他片段。混响时延的分母应为一个正整数。
+            </p>
+            <p>
+                混响强度与混响时延成正相关，并且在大部分场景下，1/20s的混响时延的效果为适中水平。
+                出于防止响度叠加造成破音的考虑，本功能会自动先将被修改片段的音量减半再作处理。
+            </p>
+            <p>
+                时间相关参数的规定：对于a分b秒c毫秒这一参数组，应满足a和b是介于0和59之间的整数，c是介于0和999之间的整数。
+            </p>
         </div>
-        </br>
+        <p>请输入参数：</p>
         <form name="args">
-            请输入参数：</br></br>
-            将<input type="text" name="arg1" id="arg1" size="1" value="0"/>分
+            向<input type="text" name="arg1" id="arg1" size="1" value="0"/>分
             <input type="text" name="arg2" id="arg2" size="1" value="0"/>秒
-            <input type="text" name="arg3" id="arg3" size="1" value="0"/>毫秒至
+            <input type="text" name="arg3" id="arg3" size="2" value="0"/>毫秒至
             <input type="text" name="arg4" id="arg4" size="1" value="0"/>分
             <input type="text" name="arg5" id="arg5" size="1" value="0"/>秒
-            <input type="text" name="arg6" id="arg6" size="1" value="0"/>毫秒段的音频</br></br>
-            添加<input type="text" name="arg10" id="arg10" size="1" value="20"/>Hz的混响效果（填正整数）</br></br>
-            <input type="reset"/>
+            <input type="text" name="arg6" id="arg6" size="2`" value="0"/>毫秒段的音频添加
+            <input type="text" name="arg10" id="arg10" size="2" value="20"/>分之一秒时延的混响效果</br></br>
+            <input type="reset" class="button"/>
             <input type="submit" onclick="PassArgs(9)" value="确定"/>
         </form>
     </body>

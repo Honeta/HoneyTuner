@@ -3,12 +3,26 @@ body{
     padding-right: 1pc;
     background-color: rgb(253, 245, 245);
     user-select: none;
-    -webkit-user-drag: none;
 }
 
-p{
-    font-family: 等线 Light;
-    font-size: 1pc;
+p,form,input{
+    font-family: 等线;
+    font-size: 1.2pc;
+}
+
+p,form{
+    line-height: 2pc;
+    text-indent: 2em;
+}
+
+input {
+    background-color: rgb(189, 5, 5);
+    color: aliceblue;
+    border: 0ch;
+}
+
+input.button{
+    margin-left: 13.5em;
 }
 
 #nav {
@@ -21,11 +35,12 @@ p{
 }
 
 #intro {
-    margin-left: 1.2pc;
-    background-color:rgb(202, 3, 46);
-    color:aliceblue;
+    background-color:rgb(177, 3, 41);
     vertical-align: middle;
-    text-align: center;
+    color: aliceblue;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 0.1px;
 }
 
 a {
@@ -37,8 +52,8 @@ a {
 }
 
 iframe {    
-    margin-left: 1pc;
-    margin-right: 1pc;
+    margin-left: 1.3pc;
+    margin-right: 0pc;
     border: 0ch;
 }
 

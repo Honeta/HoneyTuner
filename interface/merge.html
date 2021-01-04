@@ -26,20 +26,28 @@
     <body>
         <div id="intro">
             <img src="../image/merge.png" width="282" height="102" alt=""/></img>
+            <p>
+                本功能可实现将副音频整体或任意一个片段拼接到主音频的任意位置，并且不使主音频的任何片段被覆盖。
+            </p>
+            <p>
+                请将你选定的副音频xxx.mp3放到audio文件夹下，并重命名为res1.mp3。一切就绪后请输入参数并单击确定键。
+            </p>
+            <p>
+                时间相关参数的规定：对于a分b秒c毫秒这一参数组，应满足a和b是介于0和59之间的整数，c是介于0和999之间的整数。
+            </p>
         </div>
-        </br>
+        <p>请输入参数：</p>
         <form name="args">
-            请输入参数：</br></br>
-            将新增音频中的<input type="text" name="arg1" id="arg1" size="1" value="0"/>分
+            将副音频中的<input type="text" name="arg1" id="arg1" size="1" value="0"/>分
             <input type="text" name="arg2" id="arg2" size="1" value="0"/>秒
-            <input type="text" name="arg3" id="arg3" size="1" value="0"/>毫秒至
+            <input type="text" name="arg3" id="arg3" size="2" value="0"/>毫秒至
             <input type="text" name="arg4" id="arg4" size="1" value="0"/>分
             <input type="text" name="arg5" id="arg5" size="1" value="0"/>秒
-            <input type="text" name="arg6" id="arg6" size="1" value="0"/>毫秒段的音频</br></br>
-            插入至主音频的<input type="text" name="arg7" id="arg7" size="1" value="0"/>分
+            <input type="text" name="arg6" id="arg6" size="2" value="0"/>毫秒段的音频插入至主音频的
+            <input type="text" name="arg7" id="arg7" size="1" value="0"/>分
             <input type="text" name="arg8" id="arg8" size="1" value="0"/>秒
-            <input type="text" name="arg9" id="arg9" size="1" value="0"/>毫秒处</br></br>
-            <input type="reset"/>
+            <input type="text" name="arg9" id="arg9" size="2" value="0"/>毫秒处</br></br>
+            <input type="reset" class="button"/>
             <input type="submit" onclick="PassArgs(5)" value="确定"/>
         </form>
     </body>

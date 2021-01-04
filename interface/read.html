@@ -17,11 +17,22 @@
     <body>
         <div id="intro">
             <img src="../image/read.png" width="282" height="102" alt=""/></img>
+            <p>
+                欢迎来到HoneyTuner的世界！通过本软件，你可以实现对音频的多种剪辑、修改操作。
+            </p>
+            <p>
+                在开始之前，请将你选定的主音频xxx.mp3复制到本软件根目录下的audio文件夹中，并重命名为res.mp3。
+                一切就绪并点击确定键后，本软件将会对res.mp3进行解码处理，并生成波形音频文件output.wav，以便于后续进行导航栏中列出的各项剪辑、修改操作。
+                若您希望丢弃上一次或某几次的修改，可在audio文件夹的oldversions文件夹中找出你要恢复到的版本，将其重命名为output.wav并复制到audio文件夹覆盖原进度。
+            </p>
+            <p>
+                你可以随时用“试听音频效果”功能试听处理效果，并在处理全部称意之后用“导出MP3文件”功能，在audio文件夹获得最终的output.mp3。
+                每个功能的具体使用指引在会这些功能的界面中给出，望使用愉快!
+            </p>
         </div>
         </br>
         <form name="args">
-            点击确定载入主音频</br></br>
-            <input type="submit" onclick="PassArgs(0)" value="确定"/>
+            <input type="submit" class="button" onclick="PassArgs(0)" value="确定"/>
         </form>
     </body>
 </html>

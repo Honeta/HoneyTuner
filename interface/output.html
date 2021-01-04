@@ -17,11 +17,19 @@
     <body>
         <div id="intro">
             <img src="../image/output.png" width="282" height="102" alt=""/></img>
+            <p>
+                本功能可将已经作出的所有修改保存，在audio文件夹导出最终的output.mp3并清理所有临时文件。
+            </p>
+            <p>
+                本次HoneyTuner之旅即将结束，欢迎之后再次使用。
+            </p>
+            <p>
+                注意：执行本功能后，若需要对成品音频再次作出修改，则需将成品音频作为主音频，重命名为res.mp3后重新加载。
+            </p>
         </div>
         </br>
         <form name="args">
-            点击确定导出修改后的主音频</br></br>
-            <input type="submit" onclick="PassArgs(999)" value="确定"/>
+            <input type="submit" class="button" onclick="PassArgs(999)" value="确定"/>
         </form>
     </body>
 </html>

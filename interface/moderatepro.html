@@ -24,18 +24,26 @@
     <body>
         <div id="intro">
             <img src="../image/moderatepro.png" width="282" height="102" alt=""/></img>
+            <p>
+                本功能可实现将主音频整体或任意一个片段的播放速度减缓，且不改变音调、不影响其他片段。减速倍数可为任意一个大于1的偶数。
+            </p>
+            <p>
+                注意：由于本功能在减速的同时对频率进行了修正，且减速幅度与修正幅度之间存在二倍关联，故减速倍数必须为正偶数。
+            </p>
+            <p>
+                时间相关参数的规定：对于a分b秒c毫秒这一参数组，应满足a和b是介于0和59之间的整数，c是介于0和999之间的整数。
+            </p>
         </div>
-        </br>
+        <p>请输入参数：</p>
         <form name="args">
-            请输入参数：</br></br>
             将<input type="text" name="arg1" id="arg1" size="1" value="0"/>分
             <input type="text" name="arg2" id="arg2" size="1" value="0"/>秒
-            <input type="text" name="arg3" id="arg3" size="1" value="0"/>毫秒至
+            <input type="text" name="arg3" id="arg3" size="2" value="0"/>毫秒至
             <input type="text" name="arg4" id="arg4" size="1" value="0"/>分
             <input type="text" name="arg5" id="arg5" size="1" value="0"/>秒
-            <input type="text" name="arg6" id="arg6" size="1" value="0"/>毫秒段的音频</br></br>
-            不变调减速至原来的<input type="text" name="arg10" id="arg10" size="1" value="2"/>分之一（填正偶数）</br></br>
-            <input type="reset"/>
+            <input type="text" name="arg6" id="arg6" size="2" value="0"/>毫秒段的音频不变调减速至原来的
+            <input type="text" name="arg10" id="arg10" size="1" value="2"/>分之一</br></br>
+            <input type="reset" class="button"/>
             <input type="submit" onclick="PassArgs(12)" value="确定"/>
         </form>
     </body>
