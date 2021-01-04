@@ -1,3 +1,6 @@
+#ifndef RIFFEFFECT_H
+#define RIFFEFFECT_H
+
 struct RIFF;
 
 extern void EditVoice(RIFF *,double,double,double);
@@ -25,3 +28,5 @@ extern void ModeratePro(RIFF *,double,double,int);
 extern void RaiseSample(RIFF *,int);
 
 extern void LowerSample(RIFF *,int);
+
+#endif

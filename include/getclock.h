@@ -1,3 +1,6 @@
+#ifndef GETCLOCK_H
+#define GETCLOCK_H
+
 int GetYear();
 
 int GetMonth();
@@ -9,3 +12,5 @@ int GetHour();
 int GetMinute();
 
 int GetSecond();
+
+#endif

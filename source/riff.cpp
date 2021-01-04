@@ -1,12 +1,14 @@
 #include<cstdio>
 #include<cstdlib>
-#include"include/riff.h"
-
+#include"../include/riff.h"
+ 
 static FILE *fp_res,*fp_out;
 
 bool GetInfo(RIFF *ptr,int Arg)
 {
-    Arg?fp_res=fopen("res1.wav","rb"):fp_res=fopen("res.wav","rb");
+    if(Arg==0)fp_res=fopen("audio\\res.wav","rb");
+    if(Arg==1)fp_res=fopen("audio\\res1.wav","rb");
+    if(Arg==2)fp_res=fopen("audio\\output.wav","rb");
 
     //Get Chunk
     fread(ptr->ChunkID,4,1,fp_res);
@@ -53,46 +55,9 @@ bool GetInfo(RIFF *ptr,int Arg)
     return 1;
 }
 
-void PutInfo(RIFF *ptr)
-{
-    //Put Chunk
-    printf("[Chunk]\n");
-    printf("ChunkID=%s\n",ptr->ChunkID);
-    printf("ChunkSize=%d\n",ptr->ChunkSize);
-    printf("Format=%s\n",ptr->Format);
-
-    //Put Format
-    printf("[Format]\n"); 
-    printf("FormatID=%s\n",ptr->FormatID);
-    printf("FormatSize=%d\n",ptr->FormatSize);
-    printf("AudioFormat=%hd\n",ptr->AudioFormat);
-    printf("NumChannels=%hd\n",ptr->NumChannels);
-    printf("SampleRate=%d\n",ptr->SampleRate);
-    printf("ByteRate=%d\n",ptr->ByteRate);
-    printf("BlockAlign=%hd\n",ptr->BlockAlign);
-    printf("BitsPerSample=%hd\n",ptr->BitsPerSample);
-
-    //Put Fact
-    if(ptr->IsFact==true)
-    {
-        printf("[Fact]\n");
-        printf("FactID=%s\n",ptr->FactID);
-        printf("FactSize=%d\n",ptr->FactSize);
-        printf("TotalSample=%d\n",ptr->TotalSample);
-    }
-
-    //Put Data
-    printf("[Data]\n");
-    printf("DataID=%s\n",ptr->DataID);
-    printf("DataSize=%d\n",ptr->DataSize);
-    printf("Location=%d\n",ptr->Location);
-    printf("TotalTime=%d\n",ptr->TotalTime);
-    return;
-}
-
 void PutFile(RIFF *ptr)
 {
-    fp_out=fopen("output.wav","wb");
+    fp_out=fopen("audio\\output.wav","wb");
 
     //Put Chunk
     fwrite(ptr->ChunkID,4,1,fp_out);
@@ -129,6 +94,10 @@ void PutFile(RIFF *ptr)
 void Reset(RIFF *ptr,int Arg)
 {
     GetInfo(ptr,Arg);
-    if(Arg==0)system("copy res.wav output.wav");
+    if(Arg==0)
+    {
+        system("copy audio\\res.wav audio\\output.wav");
+        remove("audio\\res.wav");
+    }
     return;
 }

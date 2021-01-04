@@ -22,6 +22,8 @@ static double bench(const FN &fn)
     return (fn(), took + now()) / 1000;
 }
 
+char *in_file,*out_file;
+
 void wavWrite_int16(char* filename, int16_t* buffer, int sampleRate, uint32_t totalSampleCount, int channels = 1) {
 
     FILE* fp = fopen(filename, "wb");
@@ -192,20 +194,16 @@ void splitpath(const char* path, char* drv, char* dir, char* name, char* ext)
 
 void Converter(int Arg)
 {
-    char in_file[9];
-    Arg?sprintf(in_file,"res1.mp3"):sprintf(in_file,"res.mp3");
+    
+    if(Arg)in_file="audio\\res1.mp3";
+    else in_file="audio\\res.mp3";
+    if(Arg)out_file="audio\\res1.wav";
+    else out_file="audio\\res.wav";
     uint32_t totalSampleCount = 0;
     uint32_t sampleRate = 0;
     unsigned int channels = 0;
     int16_t* wavBuffer = NULL;
     wavBuffer = DecodeMp3ToBuffer(in_file, &sampleRate, &totalSampleCount, &channels);
-    char drive[3];
-    char dir[256];
-    char fname[256];
-    char ext[256];
-    char out_file[1024];
-    splitpath(in_file, drive, dir, fname, ext);
-    sprintf(out_file, "%s%s%s.wav", drive, dir, fname);
     wavWrite_int16(out_file, wavBuffer, sampleRate, totalSampleCount, channels);
     if (wavBuffer)
     {

@@ -103,8 +103,8 @@ static int parse_command(int argc, char **argv, shine_config_t *config) {
 
 bool transformer() {
 
-    infname="output.wav";
-    outfname="output.mp3";
+    infname="audio\\output.wav";
+    outfname="audio\\output.mp3";
     stereo = DUAL_CHANNEL;
     shine_config_t config;
     shine_t s;

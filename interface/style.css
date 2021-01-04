@@ -1,0 +1,65 @@
+body{
+    padding-left: 1pc;
+    padding-right: 1pc;
+    background-color: rgb(253, 245, 245);
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+p{
+    font-family: 等线 Light;
+    font-size: 1pc;
+}
+
+#nav {
+    line-height:30px;
+    background-color:rgb(143, 1, 1);
+    color: aliceblue;
+    width:178px;
+    float:left;
+    padding:5px; 
+}
+
+#intro {
+    margin-left: 1.2pc;
+    background-color:rgb(202, 3, 46);
+    color:aliceblue;
+    vertical-align: middle;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    font-family: 等线;
+    font-size: 1.1pc;
+    color: aliceblue;
+    line-height: 1.5;
+}
+
+iframe {    
+    margin-left: 1pc;
+    margin-right: 1pc;
+    border: 0ch;
+}
+
+h1 {
+    text-align: center;
+    font-family: 方正魏碑简体;
+    font-size: 3pc;
+}
+
+h2 {
+    text-align: center;
+    font-family: 微软雅黑 Light;
+    font-size: 3pc;
+}
+
+h3 {
+    font-family: 叶根友毛笔行书2.0版;
+    font-size: 3pc;
+}
+
+h4 {
+    text-align: center;
+    font-family: 等线 Light;
+}

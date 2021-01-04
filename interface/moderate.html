@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <script>
+            function PassArgs(Arg0)
+            {
+                var arg1=document.args.arg1.value,
+                    arg2=document.args.arg2.value,
+                    arg3=document.args.arg3.value,
+                    arg4=document.args.arg4.value,
+                    arg5=document.args.arg5.value,
+                    arg6=document.args.arg6.value,
+                    arg10=document.args.arg10.value,
+                    Arg1=arg1*60+arg2*1+arg3/1000,
+                    Arg2=arg4*60+arg5*1+arg6/1000,
+                    Arg3=0,
+                    Arg4=arg10,
+                    Arg=Arg0+' '+Arg1+' '+Arg2+' '+Arg3+' '+Arg4;
+                parent.MakeArgs(Arg);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="intro">
+            <img src="../image/moderate.png" width="282" height="102" alt=""/></img>
+        </div>
+        </br>
+        <form name="args">
+            请输入参数：</br></br>
+            将<input type="text" name="arg1" id="arg1" size="1" value="0"/>分
+            <input type="text" name="arg2" id="arg2" size="1" value="0"/>秒
+            <input type="text" name="arg3" id="arg3" size="1" value="0"/>毫秒至
+            <input type="text" name="arg4" id="arg4" size="1" value="0"/>分
+            <input type="text" name="arg5" id="arg5" size="1" value="0"/>秒
+            <input type="text" name="arg6" id="arg6" size="1" value="0"/>毫秒段的音频</br></br>
+            减速至原来的<input type="text" name="arg10" id="arg10" size="1" value="2"/>分之一（填正整数）</br></br>
+            <input type="reset"/>
+            <input type="submit" onclick="PassArgs(8)" value="确定"/>
+        </form>
+    </body>
+</html>

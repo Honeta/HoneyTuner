@@ -1,3 +1,6 @@
+#ifndef RIFF_H
+#define RIFF_H
+
 struct RIFF
 {
     //RIFF Chunk
@@ -31,8 +34,8 @@ struct RIFF
 
 extern bool GetInfo(RIFF *,int);
 
-extern void PutInfo(RIFF *);
-
 extern void PutFile(RIFF *);
 
 extern void Reset(RIFF *,int);
+
+#endif

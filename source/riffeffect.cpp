@@ -1,7 +1,7 @@
 #include<cstdio>
 #include<cmath>
 #include<cstdlib>
-#include"include/riff.h"
+#include"../include/riff.h"
 
 static FILE *fp_res,*fp_res1,*fp_out;
 
@@ -9,10 +9,10 @@ static short Temp[100000][2];
 
 void EditVoice(RIFF *ptr,double Begin,double End,double Arg)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
+    system("copy audio\\output.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\output.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
 
     //Put Former Part
@@ -47,15 +47,15 @@ void EditVoice(RIFF *ptr,double Begin,double End,double Arg)
         }
     fclose(fp_res);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     return;
 }
 
 void Reverse(RIFF *ptr,double Begin,double End)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
-    fp_out=fopen("output.wav","rb+");
+    system("copy audio\\output.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
+    fp_out=fopen("audio\\output.wav","rb+");
     if(floor(Begin)==floor(End))
     {
         fseek(fp_res,ptr->Location+floor(ptr->ByteRate*1.0*Begin),SEEK_SET);
@@ -105,20 +105,20 @@ void Reverse(RIFF *ptr,double Begin,double End)
     }
     fclose(fp_res);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     return;
 }
 
 void CutOff(RIFF *ptr,double Begin,double End)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
+    system("copy audio\\output.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
     int LostSize=ptr->ByteRate*1.0*(End-Begin);
     ptr->ChunkSize-=LostSize;
     ptr->DataSize-=LostSize;
     if(ptr->IsFact)ptr->TotalSample-=floor(ptr->SampleRate*1.0*(End-Begin));
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\output.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
 
     //Put Former Part
@@ -142,21 +142,21 @@ void CutOff(RIFF *ptr,double Begin,double End)
         }
     fclose(fp_res);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     return;
 }
 
 void Merge(RIFF *ptr,RIFF *ptr1,double Location,double Begin,double End)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
-    fp_res1=fopen("res1.wav","rb");
+    system("copy audio\\output.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
+    fp_res1=fopen("audio\\res1.wav","rb");
     int ExtraSize=floor(ptr->ByteRate*1.0*(End-Begin));
     ptr->ChunkSize+=floor(ptr->ByteRate*1.0*(End-Begin));
     ptr->DataSize+=floor(ptr->ByteRate*1.0*(End-Begin));
     if(ptr->IsFact)ptr->TotalSample+=floor(ptr->SampleRate*1.0*(End-Begin));
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\output.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
 
     //Merge Former Part
@@ -190,16 +190,16 @@ void Merge(RIFF *ptr,RIFF *ptr1,double Location,double Begin,double End)
     fclose(fp_res);
     fclose(fp_res1);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     return;
 }
 
 void CutChannel(RIFF *ptr,double Begin,double End,int Arg)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
+    system("copy audio\\output.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\output.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
 
     //Put Former Part
@@ -218,8 +218,9 @@ void CutChannel(RIFF *ptr,double Begin,double End,int Arg)
         int temp[2];
         for(int j=0;j<ptr->NumChannels;j++)
             fread(&temp[j],ptr->BitsPerSample>>3,1,fp_res);
+        temp[Arg]=0;
         for(int j=0;j<ptr->NumChannels;j++)
-            fwrite(&temp[Arg],ptr->BitsPerSample>>3,1,fp_out);   
+            fwrite(&temp[j],ptr->BitsPerSample>>3,1,fp_out);   
     }
 
     //Put Latter Part
@@ -232,21 +233,21 @@ void CutChannel(RIFF *ptr,double Begin,double End,int Arg)
         }    
     fclose(fp_res);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     return;
 }
 
 void Accelerate(RIFF *ptr,double Begin,double End,int Arg)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
+    system("copy audio\\output.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
     int LostSize=floor(ptr->ByteRate*(1.0-1.0/Arg)*(End-Begin));
     ptr->ChunkSize-=LostSize;
     ptr->DataSize-=LostSize;
     ptr->TotalTime-=(1.0-1.0/Arg)*(End-Begin);
     if(ptr->IsFact)ptr->TotalSample-=floor(ptr->SampleRate*(1.0-1.0/Arg)*(End-Begin));
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\output.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
 
     //Put Former Part
@@ -280,21 +281,21 @@ void Accelerate(RIFF *ptr,double Begin,double End,int Arg)
         }    
     fclose(fp_res);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     return;
 }
 
 void Moderate(RIFF *ptr,double Begin,double End,int Arg)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
+    system("copy audio\\output.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
     int ExtraSize=floor(ptr->ByteRate*(Arg-1.0)*(End-Begin));
     ptr->ChunkSize+=ExtraSize;
     ptr->DataSize+=ExtraSize;
     ptr->TotalTime+=(Arg-1.0)*(End-Begin);
     if(ptr->IsFact)ptr->TotalSample+=floor(ptr->SampleRate*(Arg-1.0)*(End-Begin));
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\output.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
 
     //Put Former Part
@@ -328,18 +329,18 @@ void Moderate(RIFF *ptr,double Begin,double End,int Arg)
         }    
     fclose(fp_res);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     return;
 }
 
 void EnvironmentEffect(RIFF *ptr,double Begin,double End,double Arg)
 {
-    system("copy output.wav temp1.wav");
-    system("copy output.wav temp2.wav");
-    fp_res=fopen("temp1.wav","rb");
-    fp_res1=fopen("temp2.wav","rb");
+    system("copy audio\\output.wav audio\\temp1.wav");
+    system("copy audio\\output.wav audio\\temp2.wav");
+    fp_res=fopen("audio\\temp1.wav","rb");
+    fp_res1=fopen("audio\\temp2.wav","rb");
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\output.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
 
     //Put Former Part
@@ -376,18 +377,18 @@ void EnvironmentEffect(RIFF *ptr,double Begin,double End,double Arg)
     fclose(fp_res);
     fclose(fp_res1);
     fclose(fp_out);
-    remove("temp1.wav");
-    remove("temp2.wav");
+    remove("audio\\temp1.wav");
+    remove("audio\\temp2.wav");
     return;
 }
 
 void Combine(RIFF *ptr,RIFF *ptr1,double Location,double Begin,double End)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
-    fp_res1=fopen("res1.wav","rb");
+    system("copy audio\\output.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
+    fp_res1=fopen("audio\\res1.wav","rb");
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\output.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
 
     //Put Former Part
@@ -423,16 +424,16 @@ void Combine(RIFF *ptr,RIFF *ptr1,double Location,double Begin,double End)
     fclose(fp_res);
     fclose(fp_res1);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     return;
 }
 
 void RaiseTone(RIFF *ptr,double Begin,double End,int Arg)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
+    system("copy audio\\output.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\output.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
 
     //Put Former Part
@@ -469,7 +470,7 @@ void RaiseTone(RIFF *ptr,double Begin,double End,int Arg)
         }    
     fclose(fp_res);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     if(Arg>1)RaiseTone(ptr,Begin,End,Arg-1);
     return;
 }
@@ -483,8 +484,8 @@ void ModeratePro(RIFF *ptr,double Begin,double End,int Arg)
 
 void RaiseSample(RIFF *ptr,int Target)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
+    system("copy audio\\res1.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
     int Origin=ptr->SampleRate;
     int ExtraSize=ptr->ByteRate*(Target-Origin);
     ptr->ChunkSize+=ExtraSize;   
@@ -493,7 +494,7 @@ void RaiseSample(RIFF *ptr,int Target)
     if(ptr->IsFact)ptr->TotalSample=Target*ptr->TotalTime;
     ptr->DataSize+=ExtraSize;
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\res1.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
     for(int i=0;i<ptr->TotalTime;i++)
         for(int k=1;k<=Origin;k++)
@@ -510,14 +511,14 @@ void RaiseSample(RIFF *ptr,int Target)
         }
     fclose(fp_res);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     return;
 }
 
 void LowerSample(RIFF *ptr,int Target)
 {
-    system("copy output.wav temp.wav");
-    fp_res=fopen("temp.wav","rb");
+    system("copy audio\\res1.wav audio\\temp.wav");
+    fp_res=fopen("audio\\temp.wav","rb");
     int Origin=ptr->SampleRate;
     int LostSize=ptr->ByteRate*(Origin-Target);
     ptr->ChunkSize-=LostSize;   
@@ -526,7 +527,7 @@ void LowerSample(RIFF *ptr,int Target)
     if(ptr->IsFact)ptr->TotalSample=Target*ptr->TotalTime;
     ptr->DataSize-=LostSize;
     PutFile(ptr);
-    fp_out=fopen("output.wav","rb+");
+    fp_out=fopen("audio\\res1.wav","rb+");
     fseek(fp_out,ptr->Location,SEEK_SET);
     for(int i=0;i<ptr->TotalTime;i++)
         for(int k=1;k<=Origin;k++)
@@ -541,6 +542,6 @@ void LowerSample(RIFF *ptr,int Target)
         }
     fclose(fp_res);
     fclose(fp_out);
-    remove("temp.wav");
+    remove("audio\\temp.wav");
     return;
 }

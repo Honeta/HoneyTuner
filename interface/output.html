@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <script>
+            function PassArgs(Arg0)
+            {
+                var Arg1=0,
+                    Arg2=0,
+                    Arg3=0,
+                    Arg4=0,
+                    Arg=Arg0+' '+Arg1+' '+Arg2+' '+Arg3+' '+Arg4;
+                parent.MakeArgs(Arg);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="intro">
+            <img src="../image/output.png" width="282" height="102" alt=""/></img>
+        </div>
+        </br>
+        <form name="args">
+            点击确定导出修改后的主音频</br></br>
+            <input type="submit" onclick="PassArgs(999)" value="确定"/>
+        </form>
+    </body>
+</html>

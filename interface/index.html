@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>HoneyTuner</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+        <script>
+            function MakeArgs(Arg)
+            {
+                this.Arg=Arg;
+                const fs=require('fs');
+                fs.writeFile('audio\\honeyset.in',Arg,(err)=>{});
+                const execFile = require('child_process').execFile; 
+                var cmd = "main.exe";    
+                execFile(cmd, function(error, stdout, stderr) {console.log(stdout);});
+            }
+        </script>
+    </head>
+    <body style="padding: 0%;">
+        <div id="nav">
+            <div style="text-align: center;">
+                <img src="../image/honeytuner.png" width="120" height="120"/>
+            </div>    
+            <a href="about.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp首页</a><br/>
+            <a href="read.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp读取MP3文件</a><br/>
+            <a href="voiceup.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段音量增大</a><br/>
+            <a href="voicedown.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段音量减小</a><br/>
+            <a href="reverse.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段反转</a><br/>
+            <a href="cutoff.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段移除</a><br/>
+            <a href="merge.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段插入</a><br/>
+            <a href="cutchannel.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段声道抽取</a><br/>
+            <a href="accelerate.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段变调加速</a><br/>
+            <a href="moderate.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段变调减速</a><br/>
+            <a href="moderatepro.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段原调减速</a><br/>
+            <a href="environment.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段混响效果</a><br/>
+            <a href="toneup.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段升调</a><br/>
+            <a href="combine.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp片段叠加</a><br/>
+            <a href="listen.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp试听音频效果</a><br/>
+            <a href="output.html" target="show">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp导出MP3文件</a><br/></br>
+        </div>
+        <div id="section">
+            <iframe name="show" src="about.html" width="693" height="644"></iframe>
+        </div>
+    </body>
+</html>
