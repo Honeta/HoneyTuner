@@ -3,10 +3,10 @@ const { join } = require('path')
 
 function createWindow () {
   const win = new BrowserWindow({
-    width: 950,
-    height: 750,
+    width: 962,
+    height: 762,
     icon:join(__dirname,'../image/icon.ico'),
-    resizable: false,
+    resizable: true,
     webPreferences: {
         nodeIntegration: true
     }
