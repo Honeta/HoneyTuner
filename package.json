@@ -33,19 +33,25 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "image/icon.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "honeytuner"
+            "name": "honeytuner",
+            "icon": "image/icon.ico"
           }
         },
         {
           "name": "@electron-forge/maker-zip",
           "platforms": [
             "darwin"
-          ]
+          ],
+          "config": {
+            "icon": "image/icon.ico"
+          }
         },
         {
           "name": "@electron-forge/maker-deb",

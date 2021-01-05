@@ -5,7 +5,7 @@ function createWindow () {
   const win = new BrowserWindow({
     width: 950,
     height: 690,
-    icon:join('image/favicon.ico'),
+    icon:join(__dirname,'../image/icon.ico'),
     resizable: false,
     webPreferences: {
         nodeIntegration: true
