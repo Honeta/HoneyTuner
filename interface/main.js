@@ -3,8 +3,8 @@ const { join } = require('path')
 
 function createWindow () {
   const win = new BrowserWindow({
-    width: 962,
-    height: 762,
+    width: 961,
+    height: 761,
     icon:join(__dirname,'../image/icon.ico'),
     resizable: true,
     webPreferences: {
