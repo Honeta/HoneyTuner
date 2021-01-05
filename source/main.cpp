@@ -6,10 +6,37 @@
 #include"../include/id3toriff.h"
 #include"../include/rifftoid3.h"
 #include"../include/getclock.h"
+#include"../include/discard.h"
 
 using namespace std;
 
-RIFF res,res1;
+RIFF Res,Res1;
+
+void CreateVersion()
+{
+    int Year=GetYear(),
+        Month=GetMonth(),
+        Day=GetDay(),
+        Hour=GetHour(),
+        Minute=GetMinute(),
+        Second=GetSecond();
+    char Order[100];
+    sprintf(Order,"copy audio\\output.wav audio\\oldversions\\output_%d_%d_%d_%d_%d_%d.wav",Year,Month,Day,Hour,Minute,Second);
+    system(Order);
+    return;
+}
+
+void Discard()
+{
+    char Order[100];
+    const char *Last=LastFile("audio\\oldversions","wav");
+    if(Last[0]!=' ')
+    {
+        sprintf(Order,"move audio\\oldversions\\%s audio\\output.wav",Last);
+        system(Order);
+    }     
+    return;
+}
 
 int main()
 {
@@ -22,23 +49,15 @@ int main()
     system("del /q audio\\honeyset.in");
     if(Mode>=2&&Mode<=100)
         {
-            int Year,Month,Day,Hour,Minute,Second;
-            Year=GetYear();
-            Month=GetMonth();
-            Day=GetDay();
-            Hour=GetHour();
-            Minute=GetMinute();
-            Second=GetSecond();
-            char Order[100];
-            sprintf(Order,"copy audio\\output.wav audio\\oldversions\\output_%d_%d_%d_%d_%d_%d.wav",Year,Month,Day,Hour,Minute,Second);
-            system(Order);
+            CreateVersion();
+            Reset(&Res,2);
         }
     switch(Mode)
     {
         case 0:
             system("mkdir audio\\oldversions");
             Converter(0);
-            Reset(&res,0);
+            Reset(&Res,0);
             break;
 
         case 1:
@@ -46,68 +65,67 @@ int main()
             break;
 
         case 2:
-            Reset(&res,2);
-            EditVoice(&res,Begin,End,Arg);
+            EditVoice(&Res,Begin,End,Arg);
             break;
 
         case 3:
-            Reset(&res,2);
-            Reverse(&res,Begin,End);
+            Reverse(&Res,Begin,End);
             break;
 
         case 4:
-            Reset(&res,2);
-            CutOff(&res,Begin,End);
+            CutOff(&Res,Begin,End);
             break;
 
         case 5:
-            Reset(&res,2);
             Converter(1);
-            Reset(&res1,1);
-            if(res.SampleRate!=res1.SampleRate)
-                res.SampleRate>res1.SampleRate?RaiseSample(&res1,res.SampleRate):LowerSample(&res1,res.SampleRate);
-            Merge(&res,&res1,Location,Begin,End);
-            remove("audio\\res1.wav");
+            Reset(&Res1,1);
+            if(Res.SampleRate!=Res1.SampleRate)
+                Res.SampleRate>Res1.SampleRate?RaiseSample(&Res1,Res.SampleRate):LowerSample(&Res1,Res.SampleRate);
+            Merge(&Res,&Res1,Location,Begin,End);
             break;
 
         case 6: 
-            Reset(&res,2);
-            CutChannel(&res,Begin,End,Arg);
+            CutChannel(&Res,Begin,End,Arg);
             break;
 
         case 7:        
-            Reset(&res,2);
-            Accelerate(&res,Begin,End,Arg);
+            Accelerate(&Res,Begin,End,Arg);
             break;
 
         case 8:        
-            Reset(&res,2);
-            Moderate(&res,Begin,End,Arg);
+            Moderate(&Res,Begin,End,Arg);
             break;
 
         case 9:
-            Reset(&res,2);
-            EnvironmentEffect(&res,Begin,End,Arg);
+            EnvironmentEffect(&Res,Begin,End,Arg);
             break;  
 
         case 10:
-            Reset(&res,2);
             Converter(1);
-            Reset(&res1,1);
-            if(res.SampleRate!=res1.SampleRate)
-                res.SampleRate>res1.SampleRate?RaiseSample(&res1,res.SampleRate):LowerSample(&res1,res.SampleRate);
-            Combine(&res,&res1,Location,Begin,End);
-            remove("audio\\res1.wav");
+            Reset(&Res1,1);
+            if(Res.SampleRate!=Res1.SampleRate)
+                Res.SampleRate>Res1.SampleRate?RaiseSample(&Res1,Res.SampleRate):LowerSample(&Res1,Res.SampleRate);
+            Combine(&Res,&Res1,Location,Begin,End);
             break;   
 
         case 11:
-            Reset(&res,2);
-            RaiseTone(&res,Begin,End,Arg);
+            RaiseTone(&Res,Begin,End,Arg);
             break;  
  
         case 12:
-            Reset(&res,2);
-            ModeratePro(&res,Begin,End,Arg);
+            ModeratePro(&Res,Begin,End,Arg);
+            break;
+
+        case 13:
+            Repeat(&Res,Location,Begin,End);
+            break;
+
+        case 14:
+            Transfer(&Res,Location,Begin,End);
+            break;
+
+        case 666:
+            Discard();      
             break;
 
         case 999:

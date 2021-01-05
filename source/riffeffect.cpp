@@ -152,8 +152,8 @@ void Merge(RIFF *ptr,RIFF *ptr1,double Location,double Begin,double End)
     fp_res=fopen("audio\\temp.wav","rb");
     fp_res1=fopen("audio\\res1.wav","rb");
     int ExtraSize=floor(ptr->ByteRate*1.0*(End-Begin));
-    ptr->ChunkSize+=floor(ptr->ByteRate*1.0*(End-Begin));
-    ptr->DataSize+=floor(ptr->ByteRate*1.0*(End-Begin));
+    ptr->ChunkSize+=ExtraSize;
+    ptr->DataSize+=ExtraSize;
     if(ptr->IsFact)ptr->TotalSample+=floor(ptr->SampleRate*1.0*(End-Begin));
     PutFile(ptr);
     fp_out=fopen("audio\\output.wav","rb+");
@@ -191,6 +191,7 @@ void Merge(RIFF *ptr,RIFF *ptr1,double Location,double Begin,double End)
     fclose(fp_res1);
     fclose(fp_out);
     remove("audio\\temp.wav");
+    remove("audio\\res1.wav");
     return;
 }
 
@@ -425,6 +426,7 @@ void Combine(RIFF *ptr,RIFF *ptr1,double Location,double Begin,double End)
     fclose(fp_res1);
     fclose(fp_out);
     remove("audio\\temp.wav");
+    remove("audio\\res1.wav");
     return;
 }
 
@@ -543,5 +545,29 @@ void LowerSample(RIFF *ptr,int Target)
     fclose(fp_res);
     fclose(fp_out);
     remove("audio\\temp.wav");
+    return;
+}
+
+void Repeat(RIFF *ptr,double Location,double Begin,double End)
+{
+    system("copy audio\\output.wav audio\\res1.wav");
+    Merge(ptr,ptr,Location,Begin,End);
+    return;
+}
+
+void Transfer(RIFF *ptr,double Location,double Begin,double End)
+{
+    if(Location<Begin)
+    {
+        system("copy audio\\output.wav audio\\res1.wav");
+        CutOff(ptr,Begin,End);        
+        Merge(ptr,ptr,Location,Begin,End);
+    }        
+    if(Location>End)
+    {
+        system("copy audio\\output.wav audio\\res1.wav");
+        CutOff(ptr,Begin,End);        
+        Merge(ptr,ptr,Location-End+Begin,Begin,End);
+    }        
     return;
 }

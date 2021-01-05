@@ -29,4 +29,8 @@ extern void RaiseSample(RIFF *,int);
 
 extern void LowerSample(RIFF *,int);
 
+extern void Repeat(RIFF *,double,double,double);
+
+extern void Transfer(RIFF *,double,double,double);
+
 #endif

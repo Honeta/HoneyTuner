@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <script>
+            function PassArgs(Arg0)
+            {
+                var Arg1=0,
+                    Arg2=0,
+                    Arg3=0,
+                    Arg4=0,
+                    Arg=Arg0+' '+Arg1+' '+Arg2+' '+Arg3+' '+Arg4;
+                parent.MakeArgs(Arg);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="intro">
+            <img src="../image/discard.png" width="282" height="102" alt=""/></img>
+            <p>
+                本功能可实现撤销上一次或最近的若干次修改。
+            </p>
+            <p>
+                注意：关闭软件不会造成修改记录丢失，但使用“导出MP3文件”功能或手动清理audio目录下临时文件夹都会清理掉修改记录，
+                在你上一次这么做之前所作出的所有修改都不能撤销。
+            </p>
+            <p>
+                单击确定键以执行一次撤销操作。您也可在此界面连续多次执行，每次执行都将使音频回到更早的版本。
+            </p>
+        </div>
+        </br>
+        <form name="args">
+            <input type="submit" class="button" onclick="PassArgs(666)" value="确定"/>
+        </form>
+    </body>
+</html>

@@ -11,11 +11,13 @@
                     arg4=document.args.arg4.value,
                     arg5=document.args.arg5.value,
                     arg6=document.args.arg6.value,
-                    arg10=document.args.arg10.value,
-                    Arg1=arg1*60+arg2*1+arg3/1000,
+                    arg7=document.args.arg7.value,
+                    arg8=document.args.arg8.value,
+                    arg9=document.args.arg9.value,
+                    Arg1=arg1*60+arg2*1+arg3/1000,                        
                     Arg2=arg4*60+arg5*1+arg6/1000,
-                    Arg3=0,
-                    Arg4=arg10,
+                    Arg3=arg7*60+arg8*1+arg9/1000,
+                    Arg4=0,
                     Arg=Arg0+' '+Arg1+' '+Arg2+' '+Arg3+' '+Arg4;
                 parent.MakeArgs(Arg);
             }
@@ -23,13 +25,13 @@
     </head>
     <body>
         <div id="intro">
-            <img src="../image/voiceup.png" width="282" height="102" alt=""/></img>
+            <img src="../image/transfer.png" width="282" height="102" alt=""/></img>
             <p>
-                本功能可实现将主音频整体或任意一个片段的音量增大，增大倍数可以是任意一个大于1的整数或小数。
+                本功能可实现将主音频的任意一个片段移动到该片段之外的任意位置，并且不影响其他片段。
             </p>
             <p>
-                但也应注意：音频的响度值过大会导致播放时出现破音的现象（即产生较大的爆破声或电流声），
-                故增大倍数应根据音频自身音量大小酌情设定，该参数建议通过多次尝试后确定，一般在1和2之间。
+                注意：目标位置是指目前未作移动修改的状态下你希望将目标音频移动到的位置。
+                所以，若这个目标位置依然在目标片段中，则没有任何意义，软件也不会执行任何操作。
             </p>
             <p>
                 时间相关参数的规定：对于a分b秒c毫秒这一参数组，应满足a和b是介于0和59之间的整数，c是介于0和999之间的整数。
@@ -42,10 +44,12 @@
             <input type="text" name="arg3" id="arg3" size="2" value="0"/>毫秒至
             <input type="text" name="arg4" id="arg4" size="1" value="0"/>分
             <input type="text" name="arg5" id="arg5" size="1" value="0"/>秒
-            <input type="text" name="arg6" id="arg6" size="2" value="0"/>毫秒段的音频音量升高至原来的
-            <input type="text" name="arg10" id="arg10" size="3" value="1.2"/>倍</br></br>
+            <input type="text" name="arg6" id="arg6" size="2" value="0"/>毫秒段的音频移动至
+            <input type="text" name="arg7" id="arg7" size="1" value="0"/>分
+            <input type="text" name="arg8" id="arg8" size="1" value="0"/>秒
+            <input type="text" name="arg9" id="arg9" size="2" value="0"/>毫秒处</br></br>
             <input type="reset" class="button"/>
-            <input type="submit" onclick="PassArgs(2)" value="确定"/>
+            <input type="submit" onclick="PassArgs(14)" value="确定"/>
         </form>
     </body>
 </html>
