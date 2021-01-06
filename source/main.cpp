@@ -6,7 +6,7 @@
 #include"../include/id3toriff.h"
 #include"../include/rifftoid3.h"
 #include"../include/getclock.h"
-#include"../include/discard.h"
+#include"../include/getfile.h"
 
 using namespace std;
 
