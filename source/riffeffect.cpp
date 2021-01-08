@@ -55,54 +55,73 @@ void Reverse(RIFF *ptr,double Begin,double End)
 {
     system("copy audio\\output.wav audio\\temp.wav");
     fp_res=fopen("audio\\temp.wav","rb");
+    PutFile(ptr);
     fp_out=fopen("audio\\output.wav","rb+");
+    fseek(fp_out,ptr->Location,SEEK_SET);
+
+    //Put Former Part
+    fseek(fp_res,ptr->Location,SEEK_SET);
+    for(int i=0;i<floor(ptr->SampleRate*1.0*Begin);i++)
+        for(int j=0;j<ptr->NumChannels;j++)
+        {
+            short temp;
+            fread(&temp,ptr->BitsPerSample>>3,1,fp_res);
+            fwrite(&temp,ptr->BitsPerSample>>3,1,fp_out);
+        }
+
+    //Put Reversed Part
     if(floor(Begin)==floor(End))
     {
-        fseek(fp_res,ptr->Location+floor(ptr->ByteRate*1.0*Begin),SEEK_SET);
         for(int j=0;j<floor((End-Begin)*ptr->SampleRate);j++)
             for(int k=0;k<ptr->NumChannels;k++)
                 fread(&Temp[j][k],ptr->BitsPerSample>>3,1,fp_res);
-        fseek(fp_out,ptr->Location+floor(ptr->ByteRate*1.0*Begin),SEEK_SET);
         for(int j=floor((End-Begin)*ptr->SampleRate)-1;j>=0;j--)
             for(int k=0;k<ptr->NumChannels;k++)
                 fwrite(&Temp[j][k],ptr->BitsPerSample>>3,1,fp_out);
     }
     else
     {
-        //Put Former Part
-        fseek(fp_res,ptr->Location+floor(ptr->ByteRate*1.0*Begin),SEEK_SET);
-        for(int j=0;j<floor((ceil(Begin)*1.0-Begin)*ptr->SampleRate);j++)
+        //Put First Part
+        fseek(fp_res,ptr->Location+floor(End)*ptr->ByteRate,SEEK_SET);
+        for(int j=0;j<floor((End-1.0*floor(End))*ptr->SampleRate);j++)
             for(int k=0;k<ptr->NumChannels;k++)
                 fread(&Temp[j][k],ptr->BitsPerSample>>3,1,fp_res);
-        fseek(fp_out,ptr->Location+floor(ptr->ByteRate*1.0*End)-floor(ptr->ByteRate*1.0*(ceil(Begin)*1.0-Begin)),SEEK_SET);
-        for(int j=floor((ceil(Begin)*1.0-Begin)*ptr->SampleRate)-1;j>=0;j--)
+        for(int j=floor((End-1.0*floor(End))*ptr->SampleRate)-1;j>=0;j--)
             for(int k=0;k<ptr->NumChannels;k++)
                 fwrite(&Temp[j][k],ptr->BitsPerSample>>3,1,fp_out);
 
-        //Put Reversed Part
-        for(int m=ceil(Begin);m<floor(End);m++)
+        //Put Middle Part
+        for(int i=0;i<(floor(End)-ceil(Begin));i++)
         {
-            int i=m-ceil(Begin)+1;
-            fseek(fp_res,ptr->Location+m*ptr->ByteRate,SEEK_SET);
+            fseek(fp_res,ptr->Location+(floor(End)-1-i)*ptr->ByteRate,SEEK_SET);
             for(int j=0;j<ptr->SampleRate;j++)
                 for(int k=0;k<ptr->NumChannels;k++)
                     fread(&Temp[j][k],ptr->BitsPerSample>>3,1,fp_res);
-            fseek(fp_out,ptr->Location+floor(ptr->ByteRate*1.0*End)-floor(ptr->ByteRate*1.0*(ceil(Begin)*1.0-Begin))-i*ptr->ByteRate,SEEK_SET);
             for(int j=ptr->SampleRate-1;j>=0;j--)
                 for(int k=0;k<ptr->NumChannels;k++)
                     fwrite(&Temp[j][k],ptr->BitsPerSample>>3,1,fp_out);
         }
 
-        //Put Latter Part
-        fseek(fp_res,ptr->Location+floor(End)*ptr->ByteRate,SEEK_SET);
-        for(int j=0;j<floor((End-1.0*floor(End))*ptr->SampleRate);j++)
+        //Put Last Part
+        fseek(fp_res,ptr->Location+floor(ptr->ByteRate*1.0*Begin),SEEK_SET);
+        for(int j=0;j<floor((ceil(Begin)*1.0-Begin)*ptr->SampleRate);j++)
             for(int k=0;k<ptr->NumChannels;k++)
                 fread(&Temp[j][k],ptr->BitsPerSample>>3,1,fp_res);
-        fseek(fp_out,ptr->Location+floor(ptr->ByteRate*1.0*Begin),SEEK_SET);
-        for(int j=floor((End-1.0*floor(End))*ptr->SampleRate)-1;j>=0;j--)
+        for(int j=floor((ceil(Begin)*1.0-Begin)*ptr->SampleRate)-1;j>=0;j--)
             for(int k=0;k<ptr->NumChannels;k++)
                 fwrite(&Temp[j][k],ptr->BitsPerSample>>3,1,fp_out);
     }
+
+    //Put Latter Part
+    fseek(fp_res,ptr->Location+floor(ptr->ByteRate*1.0*End),SEEK_SET);
+    for(int i=floor(ptr->SampleRate*1.0*End);i<(ptr->DataSize)/(ptr->NumChannels*ptr->BitsPerSample>>3);i++)
+        for(int j=0;j<ptr->NumChannels;j++)
+        {
+            short temp;
+            fread(&temp,ptr->BitsPerSample>>3,1,fp_res);
+            fwrite(&temp,ptr->BitsPerSample>>3,1,fp_out);
+        }
+
     fclose(fp_res);
     fclose(fp_out);
     remove("audio\\temp.wav");
