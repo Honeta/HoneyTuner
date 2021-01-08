@@ -48,10 +48,11 @@ int main()
     fclose(stdin);
     system("del /q audio\\honeyset.in");
     if(Mode>=2&&Mode<=100)
-        {
-            CreateVersion();
-            Reset(&Res,2);
-        }
+    {
+        CreateVersion();
+        Reset(&Res,2);
+        if(End<=Begin||Begin<0||(Location==0&&End>Res.TotalTime))return 0;
+    }
     switch(Mode)
     {
         case 0:
@@ -79,6 +80,11 @@ int main()
         case 5:
             Converter(1);
             Reset(&Res1,1);
+            if(End>Res1.TotalTime||Location<0||Location>Res.TotalTime)
+            {
+                remove("audio\\res1.wav");
+                break;
+            }
             if(Res.SampleRate!=Res1.SampleRate)
                 Res.SampleRate>Res1.SampleRate?RaiseSample(&Res1,Res.SampleRate):LowerSample(&Res1,Res.SampleRate);
             Merge(&Res,&Res1,Location,Begin,End);
@@ -103,6 +109,11 @@ int main()
         case 10:
             Converter(1);
             Reset(&Res1,1);
+            if(End>Res1.TotalTime||Location<0||Location>Res.TotalTime)
+            {
+                remove("audio\\res1.wav");
+                break;
+            }
             if(Res.SampleRate!=Res1.SampleRate)
                 Res.SampleRate>Res1.SampleRate?RaiseSample(&Res1,Res.SampleRate):LowerSample(&Res1,Res.SampleRate);
             Combine(&Res,&Res1,Location,Begin,End);
