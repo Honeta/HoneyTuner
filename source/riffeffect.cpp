@@ -433,7 +433,6 @@ void Combine(RIFF *ptr,RIFF *ptr1,double Location,double Begin,double End)
             fwrite(&temp,ptr->BitsPerSample>>3,1,fp_out);
         }   
     //Put Latter Part
-    //fseek(fp_res,ptr->Location+floor(ptr->ByteRate*1.0*(Location+End-Begin)),SEEK_SET);
     for(int i=floor(ptr->SampleRate*1.0*(Location+End-Begin));i<(ptr->DataSize)/(ptr->NumChannels*ptr->BitsPerSample>>3);i++)
         for(int j=0;j<ptr->NumChannels;j++)
         {
