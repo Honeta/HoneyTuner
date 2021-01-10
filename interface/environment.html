@@ -15,7 +15,7 @@
                     Arg1=arg1*60+arg2*1+arg3/1000,
                     Arg2=arg4*60+arg5*1+arg6/1000,
                     Arg3=0,
-                    Arg4=arg10,
+                    Arg4=arg10/1000,
                     Arg=Arg0+' '+Arg1+' '+Arg2+' '+Arg3+' '+Arg4;
                 parent.MakeArgs(Arg);
             }
@@ -25,11 +25,11 @@
         <div id="intro">
             <img src="../image/environment.png" width="282" height="102" alt=""/></img>
             <p>
-                本功能可实现向主音频整体或任意一个片段添加混响效果，且不影响其他片段。混响时延的分母应为一个正整数。
+                本功能可实现向主音频整体或任意一个片段添加混响效果，且不影响其他片段。混响时延可为任意一个大于0的整数。
             </p>
             <p>
-                混响强度与混响时延成正相关，并且在大部分场景下，1/20s的混响时延的效果为适中水平。
-                出于防止响度叠加造成破音的考虑，本功能会自动先将被修改片段的音量减半再作处理。
+                混响强度与混响时延成正相关，并且在大部分场景下，50ms的混响时延的效果为适中水平。
+                出于防止响度叠加造成破音的考虑，本功能会自动先将被修改片段的音量减半再作处理。你可以之后对这个片段酌情再行音量增大处理。
             </p>
             <p>
                 时间相关参数的规定：对于a分b秒c毫秒这一参数组，应满足a和b是介于0和59之间的整数，c是介于0和999之间的整数。
@@ -43,7 +43,7 @@
             <input type="text" name="arg4" id="arg4" size="1" value="0"/>分
             <input type="text" name="arg5" id="arg5" size="1" value="0"/>秒
             <input type="text" name="arg6" id="arg6" size="2`" value="0"/>毫秒段的音频添加
-            <input type="text" name="arg10" id="arg10" size="2" value="20"/>分之一秒时延的混响效果</br></br>
+            <input type="text" name="arg10" id="arg10" size="2" value="50"/>毫秒时延的混响效果</br></br>
             <input type="reset" class="button"/>
             <input type="submit" onclick="PassArgs(9)" value="确定"/>
         </form>

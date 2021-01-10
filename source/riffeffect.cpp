@@ -353,55 +353,6 @@ void Moderate(RIFF *ptr,double Begin,double End,int Arg)
     return;
 }
 
-void EnvironmentEffect(RIFF *ptr,double Begin,double End,double Arg)
-{
-    system("copy audio\\output.wav audio\\temp1.wav");
-    system("copy audio\\output.wav audio\\temp2.wav");
-    fp_res=fopen("audio\\temp1.wav","rb");
-    fp_res1=fopen("audio\\temp2.wav","rb");
-    PutFile(ptr);
-    fp_out=fopen("audio\\output.wav","rb+");
-    fseek(fp_out,ptr->Location,SEEK_SET);
-
-    //Put Former Part
-    fseek(fp_res,ptr->Location,SEEK_SET);
-    for(int i=0;i<floor(ptr->SampleRate*1.0*Begin);i++)
-        for(int j=0;j<ptr->NumChannels;j++)
-        {
-            short temp;
-            fread(&temp,ptr->BitsPerSample>>3,1,fp_res);
-            fwrite(&temp,ptr->BitsPerSample>>3,1,fp_out);
-        }
-
-    //Put Modified Part
-    fseek(fp_res1,ptr->Location+floor(ptr->ByteRate*1.0*Begin),SEEK_SET);
-    for(int i=0;i<floor(ptr->SampleRate*1.0*(End-Begin));i++)
-        for(int j=0;j<ptr->NumChannels;j++)
-        {
-            short temp,temp1,temp2;
-            fread(&temp1,ptr->BitsPerSample>>3,1,fp_res);
-            if(i>=floor(ptr->SampleRate*1.0/Arg))
-                fread(&temp2,ptr->BitsPerSample>>3,1,fp_res1);
-            temp=temp1*0.5+temp2*0.5;
-            fwrite(&temp,ptr->BitsPerSample>>3,1,fp_out);
-        }
-
-    //Put Latter Part
-    for(int i=floor(ptr->SampleRate*1.0*End);i<ptr->DataSize/(ptr->NumChannels*ptr->BitsPerSample>>3);i++)
-        for(int j=0;j<ptr->NumChannels;j++)
-        {
-            short temp;
-            fread(&temp,ptr->BitsPerSample>>3,1,fp_res);
-            fwrite(&temp,ptr->BitsPerSample>>3,1,fp_out);
-        }
-    fclose(fp_res);
-    fclose(fp_res1);
-    fclose(fp_out);
-    remove("audio\\temp1.wav");
-    remove("audio\\temp2.wav");
-    return;
-}
-
 void Combine(RIFF *ptr,RIFF *ptr1,double Location,double Begin,double End)
 {
     system("copy audio\\output.wav audio\\temp.wav");
@@ -587,5 +538,13 @@ void Transfer(RIFF *ptr,double Location,double Begin,double End)
         CutOff(ptr,Begin,End);        
         Merge(ptr,ptr,Location-End+Begin,Begin,End);
     }        
+    return;
+}
+
+void EnvironmentEffect(RIFF *ptr,double Begin,double End,double Arg)
+{
+    EditVoice(ptr,Begin,End+Arg,0.5);
+    system("copy audio\\output.wav audio\\res1.wav");
+    Combine(ptr,ptr,Begin+Arg,Begin,End);
     return;
 }
