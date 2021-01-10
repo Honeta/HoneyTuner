@@ -1,6 +1,6 @@
 {
   "name": "honeytuner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "HUST_hxj",
   "description": "HoneyTuner is an audio toolkit by HUST_hxj.",
   "main": "interface/main.js",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.820.0",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.1"
   },
   "config": {
     "forge": {
