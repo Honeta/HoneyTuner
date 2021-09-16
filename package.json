@@ -1,67 +1,66 @@
 {
   "name": "honeytuner",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "HUST_hxj",
-  "description": "HoneyTuner is an audio toolkit by HUST_hxj.",
-  "main": "interface/main.js",
-  "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
-  },
+  "description": "An audio editing software made by HUST_hxj.",
+  "main": "./interface/main.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HUST-hxj/HoneyTuner.git"
   },
   "keywords": [],
-  "license": "GPL",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/HUST-hxj/HoneyTuner/issues"
   },
   "homepage": "https://github.com/HUST-hxj/HoneyTuner#readme",
-  "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "@electron-forge/maker-deb": "^6.0.0-beta.54",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "electron": "^11.1.1"
-  },
-  "dependencies": {
-    "aws-sdk": "^2.820.0",
-    "electron-squirrel-startup": "^1.0.1"
-  },
   "config": {
     "forge": {
-      "packagerConfig": {
-        "icon": "image/icon.ico"
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
       },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "honeytuner",
-            "icon": "image/icon.ico"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ],
-          "config": {
-            "icon": "image/icon.ico"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
+      "electronPackagerConfig": {
+        "packageManager": "npm",
+        "icon": "./image/icon.ico"
+      },
+      "electronWinstallerConfig": {
+        "name": "honeytuner"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "honeytuner"
+      }
     }
+  },
+  "dependencies": {
+    "electron-compile": "^6.4.4",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "8.2.0"
   }
 }
